@@ -15,15 +15,15 @@ If bundler is not being used to manage dependencies, install the gem by executin
 ## Usage
 ```ruby
 # insert
-sql = "INSERT INTO `products` (`created_at`, `updated_at`, `provider_id`, `reference`, `quantity`) VALUES ('2022-07-28 14:57:15', '2022-07-28 14:57:15', 173, '5')"
+sql = "INSERT INTO `products` (`created_at`, `updated_at`, `provider_id`, `reference`, `quantity`) VALUES ('2022-07-28 14:57:15', '2022-07-28 14:57:15', 173, HJIK4, '7')"
 
 sql_statement = SqlStatementParsing::Object.new(sql)
 
 sql_statement.hash
-=> {"provider_id"=>"173", "quantity"=>nil, "reference"=>"5"}
+=> {"provider_id"=>"173", "quantity"=>"7", "reference"=>"HJIK4"}
 
 sql_statement.yaml
-=> "---\ninsert_products:\n  provider_id: '173'\n  quantity:\n  reference: '5'\n"
+=> "---\ninsert_products:\n  provider_id: '173'\n  quantity: '7'\n  reference: HJIK4\n"
 
 sql_statement.operation
 => "insert"
