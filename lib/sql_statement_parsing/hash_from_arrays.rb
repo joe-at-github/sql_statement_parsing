@@ -11,6 +11,8 @@ class HashFromArrays
   end
 
   def hash
+    return {} if fields.empty?
+
     {}.tap do |hash|
       fields.each_with_index do |item, index|
         next if IRRELEVANT_FIELDS.include? item

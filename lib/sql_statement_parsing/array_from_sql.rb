@@ -20,6 +20,9 @@ class ArrayFromSql
     else
       raise 'statement type not detected in table_name'
     end
+  rescue NoMethodError => e
+    puts "Parsing error.Could not parse: "
+    puts  sql_statement
   end
 
   def fields
@@ -32,6 +35,10 @@ class ArrayFromSql
     else
       raise 'statement type not detected in fields'
     end
+  rescue NoMethodError => e
+    puts "Parsing error.Could not parse: "
+    puts  sql_statement
+    []
   end
 
   def values
