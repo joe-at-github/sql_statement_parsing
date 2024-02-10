@@ -9,9 +9,9 @@ Gem::Specification.new do |spec|
   spec.email = ['joeffreylamy41@gmail.com']
 
   spec.summary = 'Abstraction layer to interact with SQL statements.'
-  spec.description = 'Abstraction layer allowing to turn SQL statements into Hash / YAML objects.'
+  spec.description = 'A domain object that allows extracting meaningful data from SQL statements.'
   spec.homepage = 'https://github.com/joe-at-github/sql_statement'
-  spec.required_ruby_version = '>= 2.6.0'
+  spec.required_ruby_version = '>= 2.7.0'
 
   spec.metadata['homepage_uri'] = spec.homepage
   spec.metadata['source_code_uri'] = 'https://github.com/joe-at-github/sql_statement_parsing'

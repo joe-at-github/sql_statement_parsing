@@ -1,6 +1,6 @@
 # SqlStatementParsing
 
-Abstraction layer allowing to turn SQL statements into Hash / YAML objects.
+A domain object that allows extracting meaningful data from SQL statements.
 
 ## Installation
 
@@ -13,31 +13,36 @@ If bundler is not being used to manage dependencies, install the gem by executin
     $ gem install sql_statement
 
 ## Usage
+Instantiation
 ```ruby
-# insert
 sql = "INSERT INTO `products` (`created_at`, `updated_at`, `provider_id`, `reference`, `quantity`) VALUES ('2022-07-28 14:57:15', '2022-07-28 14:57:15', 173, HJIK4, '7')"
 
-sql_statement = SqlStatementParsing::Object.new(sql)
+sql_statement = SqlStatementParsing::SqlStatement.new(sql)
+```
 
-sql_statement.hash
-=> {"provider_id"=>"173", "quantity"=>"7", "reference"=>"HJIK4"}
-
-sql_statement.yaml
-=> "---\ninsert_products:\n  provider_id: '173'\n  quantity: '7'\n  reference: HJIK4\n"
-
+Methods
+```ruby
 sql_statement.operation
 => "insert"
 
-sql_statement.table_name
+sql_statement.table
 => "products"
 
-# update
-sql = "UPDATE `providers` SET `provider_id` = 15935967, `updated_at` = '2022-07-28 09:34:00', `id` = 15436376, `status` = 'live' WHERE `providers`.`id` = 15436376"
+sql_statement.data
+=> {'provider_id' => '173', 'quantity' => '7', 'reference' => 'HJIK4', 'created_at' => '2022-07-28 14:57:15', 'updated_at' => '2022-07-28 14:57:15' }
 
-sql_statement = SqlStatementParsing::Object.new(sql)
-
-sql_statement.operation
-=> "update"
+sql_statement.to_h
+=>  {
+      metadata: { operation: 'insert', table: 'products' },
+      data: {
+        'provider_id' => '173',
+        'quantity' => '7',
+        'reference' => 'HJIK4',
+        'created_at' => '2022-07-28 14:57:15',
+        'updated_at' => '2022-07-28 14:57:15'
+      },
+      statement: "INSERT INTO `products` (`created_at`, `updated_at`, `provider_id`, `reference`, `quantity`) VALUES ('2022-07-28 14:57:15', '2022-07-28 14:57:15', 173, HJIK4, '7')"
+    }
 ```
 
 ## Development
@@ -59,21 +64,21 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/joe-at
 - use the git message template below
 
 ```bash
-Title of my commit describing what I have achieved
+Commit describing what has been achieved.
 
 Actions:
 
-+ description of main code change
++ Description of main code change.
 
-+ description of other important code change
++ Description of other important code change.
 
 etc...
 
 Motivations:
 
-+ description of why main change is needed
++ Description of why main change is needed.
 
-+ description of wy other important change is needed
++ Description of why other important change is needed.
 
 etc...
 

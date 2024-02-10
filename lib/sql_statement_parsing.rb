@@ -1,51 +1,60 @@
 # frozen_string_literal: true
 
 require_relative 'sql_statement_parsing/version'
-require_relative 'sql_statement_parsing/array_from_sql'
-require_relative 'sql_statement_parsing/hash_from_arrays'
+require_relative 'sql_statement_parsing/sql_string'
 
 module SqlStatementParsing
-  require 'yaml'
-
   class Error < StandardError; end
 
-  class Object
-    attr_reader :array_from_sql
+  # Main abstraction layer providing a public interface to access data contained in the SQL statement.
+  class SqlStatement
+    attr_reader :sql_string
 
     def initialize(sql_statement_string)
-      @array_from_sql = ArrayFromSql.new(sql_statement_string)
+      @sql_string = SqlString.new(sql_statement_string)
     end
 
-    def hash(prefix: false)
-      object = HashFromArrays.new(fields, values).hash
-      return object unless prefix
-
-      { "#{operation}_#{table_name}" => object }
+    def to_h
+      {
+        metadata: metadata,
+        data: data,
+        statement: statement
+      }
     end
 
-    def yaml
-      hash(prefix: true).to_yaml
+    def data
+      return {} if sql_string.fields.empty?
+
+      key_values.sort_by { |key, _value| key }.to_h
     end
 
-    def table_name
-      array_from_sql.table_name
+    def statement
+      sql_string.sql_statement
+    end
+
+    def table
+      sql_string.table_name
     end
 
     def operation
-      return 'insert' if array_from_sql.insert_statement?
-      return 'update' if array_from_sql.update_statement?
+      return 'insert' if sql_string.insert_statement?
+      return 'update' if sql_string.update_statement?
 
       'unkown_operation'
     end
 
     private
 
-    def fields
-      array_from_sql.fields
+    def metadata
+      { operation: operation, table: table }
     end
 
-    def values
-      array_from_sql.values
+    def key_values
+      {}.tap do |hash|
+        sql_string.fields.each_with_index do |item, index|
+          hash.merge!(item => sql_string.values[index])
+        end
+      end
     end
   end
 end
