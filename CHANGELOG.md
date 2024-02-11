@@ -16,3 +16,6 @@ Include all fields and values in the 'data' section of the data packet, i.e no l
 Simplify abstraction layers with better naming and removing a redundant class.
 
 Update documentation.
+
+## 0.2.1
+Add description for #statement to README.

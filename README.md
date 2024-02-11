@@ -29,7 +29,10 @@ sql_statement.table
 => "products"
 
 sql_statement.data
-=> {'provider_id' => '173', 'quantity' => '7', 'reference' => 'HJIK4', 'created_at' => '2022-07-28 14:57:15', 'updated_at' => '2022-07-28 14:57:15' }
+=> { 'provider_id' => '173', 'quantity' => '7', 'reference' => 'HJIK4', 'created_at' => '2022-07-28 14:57:15', 'updated_at' => '2022-07-28 14:57:15' }
+
+sql_statement.statement
+=> "INSERT INTO `products` (`created_at`, `updated_at`, `provider_id`, `reference`, `quantity`) VALUES ('2022-07-28 14:57:15', '2022-07-28 14:57:15', 173, HJIK4, '7')"
 
 sql_statement.to_h
 =>  {
