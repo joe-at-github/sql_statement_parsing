@@ -19,3 +19,6 @@ Update documentation.
 
 ## 0.2.1
 Add description for #statement to README.
+
+## 0.2.2
+`SqlStatementParsing#to_h` returns a hash with symbolized keys, even for nested hashes.

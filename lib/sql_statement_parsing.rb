@@ -52,7 +52,7 @@ module SqlStatementParsing
     def key_values
       {}.tap do |hash|
         sql_string.fields.each_with_index do |item, index|
-          hash.merge!(item => sql_string.values[index])
+          hash.merge!(item.to_sym => sql_string.values[index])
         end
       end
     end

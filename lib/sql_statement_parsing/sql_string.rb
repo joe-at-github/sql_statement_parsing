@@ -45,7 +45,7 @@ class SqlString
   def values
     if insert_statement?
       string_with_standardised_boolean(sql_statement).match(INSERT_VALUES_REGEX)[1].gsub(/[aA-zZ](,)\s*[aA-zZ]/,
-                                                                             '..;..').split(',').map do |value|
+                                                                                         '..;..').split(',').map do |value|
         value.delete("'").strip
       end
     elsif update_statement?

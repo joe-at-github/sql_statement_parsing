@@ -14,8 +14,8 @@ RSpec.describe SqlStatementParsing::SqlStatement do
     let(:expectation) do
       {
         metadata: { operation: 'insert', table: 'products' },
-        data: { 'provider_id' => '173', 'quantity' => '5', 'reference' => 'HJIK4',
-                'created_at' => '2022-07-28 14:57:15', 'updated_at' => '2022-07-28 14:57:15' },
+        data: { provider_id: '173', quantity: '5', reference: 'HJIK4',
+                created_at: '2022-07-28 14:57:15', updated_at: '2022-07-28 14:57:15' },
         statement: sql_string
       }
     end
@@ -36,11 +36,11 @@ RSpec.describe SqlStatementParsing::SqlStatement do
   describe '#data' do
     let(:expectation) do
       {
-        'provider_id' => '173',
-        'quantity' => '5',
-        'reference' => 'HJIK4',
-        'created_at' => '2022-07-28 14:57:15',
-        'updated_at' => '2022-07-28 14:57:15'
+        provider_id: '173',
+        quantity: '5',
+        reference: 'HJIK4',
+        created_at: '2022-07-28 14:57:15',
+        updated_at: '2022-07-28 14:57:15'
       }
     end
 
